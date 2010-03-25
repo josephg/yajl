@@ -30,7 +30,7 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-PROJECT(YetAnotherJSONParser)
+PROJECT(YetAnotherJSONParser C)
 
 # XXX: attempt to clearly indicate that the 2.x branch is not yet stable,
 # bump to 2.0.0 and remove this comment when baked.
@@ -44,7 +44,8 @@ IF (NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE "Release")
 ENDIF (NOT CMAKE_BUILD_TYPE)
 
-SET(CMAKE_C_FLAGS "-Wall")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
+
 IF (WIN32) 
   ADD_DEFINITIONS(-DWIN32)
   SET(linkFlags "/PDB:NONE /INCREMENTAL:NO /OPT:NOREF /OPT:NOICF")
@@ -80,6 +81,6 @@ INCLUDE(YAJLDoc.cmake)
 
 # a test target
 ADD_CUSTOM_TARGET(test
-                  ./run_tests.sh
+                  ./run_tests.sh ${CMAKE_CURRENT_BINARY_DIR}/test/yajl_test
                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/test)
 

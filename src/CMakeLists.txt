@@ -77,8 +77,9 @@ ENDFOREACH (header ${PUB_HDRS})
 INCLUDE_DIRECTORIES(${incDir}/..)
 
 IF(NOT WIN32)
-  INSTALL(TARGETS yajl LIBRARY DESTINATION lib)
-  INSTALL(TARGETS yajl_s ARCHIVE DESTINATION lib)
-  INSTALL(DIRECTORY api/ DESTINATION include/yajl
-          FILES_MATCHING PATTERN "*.h")
+  # at build time you may specify the cmake variable LIB_SUFFIX to handle
+  # 64-bit systems which use 'lib64'
+  INSTALL(TARGETS yajl LIBRARY DESTINATION lib${LIB_SUFFIX})
+  INSTALL(TARGETS yajl_s ARCHIVE DESTINATION lib${LIB_SUFFIX})
+  INSTALL(DIRECTORY api/ DESTINATION include/yajl)
 ENDIF()
